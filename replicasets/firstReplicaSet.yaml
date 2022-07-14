@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: first-replica-set
+  labels:
+    env: dev
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      server: backend
+  #pod definition
+  template:
+    metadata:
+      labels:
+        server: backend
+    spec:
+      containers:
+        - name: webserver
+          image: nginx
