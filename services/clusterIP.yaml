@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: first-deployment
+  labels:
+    env: dev
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      env: dev
+  #pod definition
+  template:
+    metadata:
+      labels:
+        env: dev
+    spec:
+      containers:
+        - name: helloworld
+          image: nginxdemos/hello
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-service
+spec:
+  selector:
+    env: dev
+  type: ClusterIP #default
+  ports:
+    - port: 8080
+      targetPort: 80
